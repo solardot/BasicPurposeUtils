@@ -7,7 +7,7 @@
 ]=]
 
 const Maid = require("../roblox_packages/Maid")
-const NumberUtils = require("NumberUtils")
+const NumberRangeUtils = require("./NumberRangeUtils")
 
 const ParticleEmitterUtils = {}
 
@@ -83,7 +83,7 @@ function ParticleEmitterUtils.scaleSize(adornee: Instance, scale: number): ()
 	assert(typeof(adornee) == "Instance", "Bad adornee")
 
 	for _, particleEmitter in ParticleEmitterUtils.getParticleEmitters(adornee) do
-		particleEmitter.Size = NumberUtils.scaleSequence(particleEmitter.Size, scale)
+		particleEmitter.Size = NumberRangeUtils.scaleSequence(particleEmitter.Size, scale)
 	end
 end
 
