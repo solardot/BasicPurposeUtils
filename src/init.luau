@@ -43,8 +43,10 @@ return {
 
 	TextServiceUtils = require("@self/TextServiceUtils"),
 	TextFilterUtils = require("@self/TextFilterUtils"),
+
 	StringUtils = require("@self/StringUtils"),
 	LipsumUtils = require("@self/LipsumUtils"),
+	TableUtils = require("@self/TableUtils"),
 
 	TeleportServiceUtils = require("@self/TeleportServiceUtils"),
 	MarketplaceServiceUtils = require("@self/MarketplaceServiceUtils"),
