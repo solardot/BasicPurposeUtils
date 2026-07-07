@@ -1,0 +1,26 @@
+name = "3soulure/basicpurposeutils"
+version = "0.1.0"
+license = "MIT"
+
+[target]
+environment = "roblox"
+
+[indices]
+default = "https://github.com/pesde-pkg/index"
+
+[wally_indices]
+default = "https://github.com/UpliftGames/wally-index"
+
+[scripts]
+
+[dev_dependencies]
+
+
+[engines]
+pesde = "^0.7.0"
+
+
+[dependencies]
+Promise = {wally = "evaera/promise", version = "^4.0.0"}
+Maid = {wally = "nightcycle/maid", version = "^2.2.2"}
+Signal = {wally = "data-oriented-house/lemonsignal", version = "^1.11.0"}

@@ -1,0 +1,14 @@
+{
+	"private": true,
+	"scripts": {
+	"build:link": "pnpm install",
+    "build:sourcemap": "rojo sourcemap default.project.json --output sourcemap.json --absolute",
+    "build:packages": "pesde install",
+    "format": "stylua --config-path=stylua.toml src",
+    "lint:luau": "luau-lsp analyze --sourcemap=sourcemap.json --base-luaurc=.luaurc --defs=globalTypes.d.lua --flag:LuauSolverV2=false --ignore=**/node_modules/** --ignore=**/*.story.lua --ignore=**/*.client.lua --ignore=**/*.server.lua --ignore=**/roblox_packages/** --ignore=**/roblox_server_packages/** src",
+    "lint:selene": "selene --no-summary --config=selene.toml src",
+    "lint:stylua": "stylua --config-path=stylua.toml --check src",
+    "prelint:luau": "pnpm run build:sourcemap",
+    "prelint:selene": "selene generate-roblox-std"
+	}
+}
