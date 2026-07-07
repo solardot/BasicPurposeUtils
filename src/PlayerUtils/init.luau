@@ -52,7 +52,7 @@ end
 	@return RBXScriptConnection -- The PlayerAdded connection
 ]=]
 @checked
-function PlayerUtils.safePlayerAdded(Callback: (Player) -> nil): RBXScriptConnection
+function PlayerUtils.safePlayerAdded(Callback: Player): RBXScriptConnection
 	assert(typeof(Callback) == "function", "Exception on safePlayerAdded: Callback must be type function")
 
 	for _, Player in ipairs(Players:GetPlayers()) do
