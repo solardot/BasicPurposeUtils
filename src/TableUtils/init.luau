@@ -43,6 +43,201 @@ function TableUtils.mapTo<Key, Value, NewKey, NewValue>(source: Map<Key, Value>,
 end
 
 --[=[
+	Maps every value in an array into a new array.
+
+	@param source table -- Source array
+	@param callback function -- Transform function
+	@return table
+]=]
+function TableUtils.map<T, U>(source: Array<T>, callback: (T, number) -> U): Array<U>
+	local result = {}
+
+	for index, value in source do
+		table.insert(result, callback(value, index))
+	end
+
+	return result
+end
+
+--[=[
+	Filters an array based on a predicate.
+
+	@param source table -- Source array
+	@param callback function -- Filter function
+	@return table
+]=]
+function TableUtils.filter<T>(source: Array<T>, callback: (T, number) -> boolean): Array<T>
+	local result = {}
+
+	for index, value in source do
+		if callback(value, index) then
+			table.insert(result, value)
+		end
+	end
+
+	return result
+end
+
+--[=[
+	Finds the first value matching a predicate.
+
+	@param source table
+	@param callback function
+	@return any?
+]=]
+function TableUtils.find<T>(source: Array<T>, callback: (T, number) -> boolean): T?
+	for index, value in source do
+		if callback(value, index) then
+			return value
+		end
+	end
+
+	return nil
+end
+
+--[=[
+	Returns true if any value matches the predicate.
+
+	@param source table
+	@param callback function
+	@return boolean
+]=]
+function TableUtils.some<T>(source: Array<T>, callback: (T, number) -> boolean): boolean
+	for index, value in source do
+		if callback(value, index) then
+			return true
+		end
+	end
+
+	return false
+end
+
+--[=[
+	Returns true if every value matches the predicate.
+
+	@param source table
+	@param callback function
+	@return boolean
+]=]
+function TableUtils.every<T>(source: Array<T>, callback: (T, number) -> boolean): boolean
+	for index, value in source do
+		if not callback(value, index) then
+			return false
+		end
+	end
+
+	return true
+end
+
+--[=[
+	Checks if a table contains a key.
+
+	@param source table
+	@param key any
+	@return boolean
+]=]
+function TableUtils.includesKey<Key>(source: Map<Key, any>, key: Key): boolean
+	return source[key] ~= nil
+end
+
+--[=[
+	Clones an array.
+
+	@param source table
+	@return table
+]=]
+function TableUtils.cloneArray<T>(source: Array<T>): Array<T>
+	local result = table.create(#source)
+
+	for index, value in source do
+		result[index] = value
+	end
+
+	return result
+end
+
+--[=[
+	Removes the first matching value.
+
+	@param source table
+	@param value any
+	@return boolean
+]=]
+function TableUtils.removeValue<T>(source: Array<T>, value: T): boolean
+	local index = TableUtils.getIndex(source, value)
+
+	if index then
+		table.remove(source, index)
+		return true
+	end
+
+	return false
+end
+
+--[=[
+	Randomizes an array in-place.
+
+	@param source table
+	@return table
+]=]
+function TableUtils.shuffle<T>(source: Array<T>): Array<T>
+	for index = #source, 2, -1 do
+		local randomIndex = math.random(index)
+
+		source[index], source[randomIndex] = source[randomIndex], source[index]
+	end
+
+	return source
+end
+
+--[=[
+	Returns a random value from an array.
+
+	@param source table
+	@return any?
+]=]
+function TableUtils.random<T>(source: Array<T>): T?
+	if #source == 0 then
+		return nil
+	end
+
+	return source[math.random(1, #source)]
+end
+
+--[=[
+	Groups values by a key.
+
+	@param source table
+	@param callback function
+	@return table
+]=]
+function TableUtils.groupBy<T, Key>(source: Array<T>, callback: (T) -> Key): Map<Key, Array<T>>
+	local result = {}
+
+	for _, value in source do
+		local key = callback(value)
+
+		if not result[key] then
+			result[key] = {}
+		end
+
+		table.insert(result[key], value)
+	end
+
+	return result
+end
+
+--[=[
+	Returns whether a table has no entries.
+
+	@param source table
+	@return boolean
+]=]
+function TableUtils.isEmpty(source: Map<any, any>): boolean
+	return next(source) == nil
+end
+
+--[=[
 	Shallow merges two tables without modifying either.
 
 	@param orig table -- Original table
