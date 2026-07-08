@@ -25,6 +25,24 @@ function TableUtils.append<T>(target: Array<T>, source: Array<T>): Array<T>
 end
 
 --[=[
+	Converts a map into another map using a transformer function.
+
+	@param source table -- Source table
+	@param callback function -- Function returning key/value pair
+	@return table
+]=]
+function TableUtils.mapTo<Key, Value, NewKey, NewValue>(source: Map<Key, Value>, callback: (Key, Value) -> (NewKey, NewValue)): Map<NewKey, NewValue>
+	local result = {}
+
+	for key, value in source do
+		local newKey, newValue = callback(key, value)
+		result[newKey] = newValue
+	end
+
+	return result
+end
+
+--[=[
 	Shallow merges two tables without modifying either.
 
 	@param orig table -- Original table
